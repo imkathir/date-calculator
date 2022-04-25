@@ -38,11 +38,17 @@ export default class App extends Component {
         default: return undefined;
     }
   }
-  handleDateChange(i, event) {
-    this.setState({ [i]: event.target.value });
+  handleDateChange(i, {target: {value :date}}) {
+
+    // this.setState({ [i]: event.target.value });
     let { startDate, endDate, totalDays = 0 } = this.state;
+    if (i==='endDate') {
+      endDate = date;
+    } else {
+      startDate = date;
+    }
     totalDays = this.mydiff(startDate, endDate, "days");
-    this.setState({totalDays});
+    this.setState({totalDays, [i]: date});
   }
   convert = (str) => {
     var date = new Date(str),
@@ -75,9 +81,7 @@ export default class App extends Component {
           </div>
         </div>
         <div className='form-group row mt-5'>
-          {/* <p className='col-3 mb-0 p-1'>End Date is {endDate}</p>
-          <p className='col-3 mb-0 p-1'>Start Date is {startDate}</p> */}
-          <h4 className='col-3 mb-0 p-1 h4 mx-auto'>Total days are {totalDays}</h4>
+          <h4 className='col-auto mb-0 p-1 h4 mx-auto'>Total days are {totalDays}</h4>
         </div>
         </section>
         {/* <NameForm />
